@@ -14,18 +14,17 @@ const About = () => {
           <Text>
             My motivation is to show in this application my desire and dedication to work with Welltech on OMO.
           </Text>
-          <Text>Only main functionality has been covered such as it is a Showcase MVP, so use correct email and valid password</Text>
+          <Text>
+            Only main functionality has been covered such as it is a Showcase MVP, so use correct email and valid
+            password
+          </Text>
           <Text>The Code is available by the link in the footer.</Text>
 
           <Spacer y={1} />
 
           <Text h3>Example User</Text>
-          <Text>
-            First user: "user+1@omoclone.com" - "12345678"
-          </Text>
-          <Text>
-            Running timer: "user+2@omoclone.com" - "12345678"
-          </Text>
+          <Text>First user: &quot;user+1@omoclone.com&quot; - &quot;12345678&quot;</Text>
+          <Text>Running timer: &quot;user+2@omoclone.com&quot; - &quot;12345678&quot;</Text>
 
           <Spacer y={1} />
 

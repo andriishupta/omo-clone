@@ -1,31 +1,43 @@
-import { Button, Card, Container, Grid, Loading, Spacer, Table, Text } from '@nextui-org/react';
+import {
+  Button,
+  Card,
+  Container,
+  Grid,
+  Loading,
+  Spacer,
+  Table,
+  Text
+} from '@nextui-org/react';
 import { FiEdit } from 'react-icons/fi';
-import { GetServerSideProps, NextPage } from 'next';
+import type {
+  GetServerSideProps,
+  NextPage
+} from 'next';
 import dynamic from 'next/dynamic';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { Database } from '@/types/supabase';
+import type { Database } from '@/types/supabase';
 
 import moment from 'moment';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { TRowType } from '@/types/helpers';
+import type { TRowType } from '@/types/helpers';
 
 const Tracker = dynamic(() => import('../../components/Tracker').then((m) => m.Tracker), {
   loading: () => (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '256px', height: '256px' }}>
-      <Loading type="points" color="currentColor" size="lg" />
+      <Loading type="points" color="currentColor" size="lg"/>
     </div>
   ),
   ssr: false,
 });
 
-const Dashboard: NextPage<{ activeFast: TRowType<'active_fast'>; fasts: TRowType<'fasts'>[] }> = ({
-  activeFast,
-  fasts,
-}) => {
-  const [currentFast, setCurrentFast] = useState<TRowType<'active_fast'> | null>(activeFast);
-  const [currentFasts, setCurrentFasts] = useState<TRowType<'fasts'>[] | []>(fasts);
+type TActiveFast = Partial<TRowType<'active_fast'>>;
+type TFast = Partial<TRowType<'fasts'>>;
+
+const Dashboard: NextPage<{ activeFast: TActiveFast; fasts: TFast[] }> = ({ activeFast, fasts }) => {
+  const [currentFast, setCurrentFast] = useState<TActiveFast | null>(activeFast);
+  const [currentFasts, setCurrentFasts] = useState<TFast[] | []>(fasts);
   const supabaseClient = useSupabaseClient<Database>();
 
   const getFastingMinutes = (startTime: moment.Moment, endTime: moment.Moment) =>
@@ -52,19 +64,21 @@ const Dashboard: NextPage<{ activeFast: TRowType<'active_fast'>; fasts: TRowType
     const { data, error } = await supabaseClient
       .from('fasts')
       .insert({
-        start: currentFast.start,
+        start: currentFast!.start as string,
         end: moment.utc().toISOString(),
       })
       .select('id,start,end')
       .order('id', { ascending: false });
 
-    const { error: activeFastError } = await supabaseClient.from('active_fast').delete().eq('id', currentFast.id);
+    const { error: activeFastError } = await supabaseClient.from('active_fast').delete().eq('id', currentFast!.id);
 
     if (error || activeFastError) {
       toast('Error with ending fast', { type: 'error' });
     } else {
       toast('Ended the FAST!');
       setCurrentFast(null);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       setCurrentFasts(data?.concat(currentFasts));
     }
   };
@@ -79,16 +93,16 @@ const Dashboard: NextPage<{ activeFast: TRowType<'active_fast'>; fasts: TRowType
           <Card css={{ width: '200px', background: '$omo300', cursor: 'not-allowed' }}>
             <Card.Body css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <Text color="$white">
-                16:8 Fasting <FiEdit color="white" />
+                16:8 Fasting <FiEdit color="white"/>
               </Text>
             </Card.Body>
           </Card>
         </Grid>
         <Grid xs={12} justify="center">
           {currentFast ? (
-            <Tracker fastingMinutes={getFastingMinutes(moment.utc(currentFast.start), moment.utc())} />
+            <Tracker fastingMinutes={getFastingMinutes(moment.utc(currentFast.start), moment.utc())}/>
           ) : (
-            <Tracker fastingMinutes={0} />
+            <Tracker fastingMinutes={0}/>
           )}
         </Grid>
 
@@ -105,7 +119,7 @@ const Dashboard: NextPage<{ activeFast: TRowType<'active_fast'>; fasts: TRowType
         </Grid>
 
         <Grid xs={12}>
-          <Spacer y={1} />
+          <Spacer y={1}/>
         </Grid>
         <Grid xs={12} direction="column" alignItems="center">
           <Text h3>Past Fasts</Text>
@@ -158,7 +172,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      activeFast: activeFast?.length ? activeFast[0] : null,
+      activeFast: activeFast?.length ? activeFast[ 0 ] : null,
       fasts,
     },
   };

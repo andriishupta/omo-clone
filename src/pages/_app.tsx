@@ -5,8 +5,9 @@ import { createTheme, NextUIProvider } from '@nextui-org/react';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import type {
+  Session} from '@supabase/auth-helpers-react';
 import {
-  Session,
   SessionContextProvider
 } from '@supabase/auth-helpers-react';
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';

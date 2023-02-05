@@ -14,8 +14,8 @@ import {
 } from '@nextui-org/react';
 import { useState } from 'react';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/types/supabase';
-import {
+import type { Database } from '@/types/supabase';
+import type {
   GetServerSideProps,
   NextPage
 } from 'next';

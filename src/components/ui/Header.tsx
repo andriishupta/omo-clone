@@ -9,8 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import { AppRoute } from '@/common/constants';
-import { User, useSessionContext, useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-import { Database } from '@/types/supabase';
+import type { User} from '@supabase/auth-helpers-react';
+import { useSessionContext, useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import type { Database } from '@/types/supabase';
 import { toast } from 'react-toastify';
 
 const menuItems = [

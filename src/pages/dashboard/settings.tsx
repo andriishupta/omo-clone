@@ -12,11 +12,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { Database } from '@/types/supabase';
+import type { Database } from '@/types/supabase';
 import { toast } from 'react-toastify';
-import { TRowType } from '@/types/helpers';
+import type { TRowType } from '@/types/helpers';
 import { UsernameRegexString } from '@/common/regex';
-import {
+import type {
   GetServerSideProps,
   NextPage
 } from 'next';
