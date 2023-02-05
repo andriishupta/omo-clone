@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import NextHead from 'next/head';
 import { createTheme, NextUIProvider } from '@nextui-org/react';
+import NextNProgress from 'nextjs-progressbar';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -62,6 +63,7 @@ export default function App({ Component, pageProps, router }: AppProps<{ initial
       <SessionContextProvider supabaseClient={clientSupabase} initialSession={pageProps.initialSession}>
         <NextUIProvider theme={nextUiTheme}>
           <Layout>
+            <NextNProgress />
             <Component {...pageProps} />
             <ToastContainer />
           </Layout>
