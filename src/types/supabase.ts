@@ -9,6 +9,64 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      active_fast: {
+        Row: {
+          created_at: string
+          end: string | null
+          id: number
+          profile_id: string | null
+          start: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          end?: string | null
+          id?: number
+          profile_id?: string | null
+          start?: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          end?: string | null
+          id?: number
+          profile_id?: string | null
+          start?: string
+          type?: string
+          updated_at?: string
+        }
+      }
+      fasts: {
+        Row: {
+          created_at: string
+          end: string
+          id: number
+          profile_id: string | null
+          start: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          end: string
+          id?: number
+          profile_id?: string | null
+          start: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          end?: string
+          id?: number
+          profile_id?: string | null
+          start?: string
+          type?: string
+          updated_at?: string
+        }
+      }
       profiles: {
         Row: {
           created_at: string

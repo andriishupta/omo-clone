@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import { Col, Container, Grid, Row, Spacer, Text } from '@nextui-org/react';
 
-import { FiLinkedin, FiTwitter } from 'react-icons/fi';
+import {
+  FiGithub,
+  FiLinkedin,
+  FiTwitter
+} from 'react-icons/fi';
 import { AppRoute, Socials } from '@/common/constants';
 
 export const Footer = () => {
@@ -48,7 +52,7 @@ export const Footer = () => {
             <Link href={`${AppRoute.Blog}/omo-clone-vs-myfitnesspal`}>
               <Text color="$white">OmoClone vs MyFitnessPal</Text>
             </Link>
-            <Link href={`${AppRoute.Blog}/omo-clone-vs-startups-fyi`}>
+            <Link href={`${AppRoute.Blog}/omo-clone-vs-zero`}>
               <Text color="$white">OmoClone vs Zero</Text>
             </Link>
           </Grid>
@@ -65,11 +69,11 @@ export const Footer = () => {
             <Text h2 size={24} color="$white">
               Product
             </Text>
-            <Link href={AppRoute.Showcase}>
-              <Text color="$white">Showcase</Text>
-            </Link>
             <Link href={AppRoute.About}>
               <Text color="$white">About</Text>
+            </Link>
+            <Link href={AppRoute.AndriiTech}>
+              <Text color="$white">AndriiTech</Text>
             </Link>
           </Grid>
           <Grid
@@ -85,6 +89,9 @@ export const Footer = () => {
             <Spacer y={3} />
             <a href={Socials.Twitter} target="_blank" rel="noreferrer">
               <FiTwitter color="white" size={24} />
+            </a>
+            <a href={Socials.Github} target="_blank" rel="noreferrer">
+              <FiGithub color="white" size={24} />
             </a>
           </Grid>
         </Container>

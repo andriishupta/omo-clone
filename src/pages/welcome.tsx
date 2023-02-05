@@ -215,7 +215,7 @@ function GoalStep({ setNextStep }: { setNextStep: NextStepFn }) {
         </Grid>
       </Grid.Container>
       <Row justify="center">
-        <Button auto rounded onClick={() => setNextStep(ActiveStep.Final)}>
+        <Button auto rounded onClick={() => setNextStep(ActiveStep.Final)} disabled={!goal}>
           Continue
         </Button>
       </Row>

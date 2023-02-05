@@ -14,13 +14,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          {CssBaseline.flush()}
-          <title>Omo Clone | By AndriiTech</title>
-          <meta name="description" content="The Clone of Omo App to showcase simple MVP by Andrii Shupta" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/omo-logo.webp" />
-        </Head>
+        <Head>{CssBaseline.flush()}</Head>
         <body>
           <Main />
           <NextScript />

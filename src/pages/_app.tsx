@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
+import NextHead from 'next/head';
 import { createTheme, NextUIProvider } from '@nextui-org/react';
 
 import { ToastContainer } from 'react-toastify';
@@ -9,7 +10,7 @@ import {
   SessionContextProvider
 } from '@supabase/auth-helpers-react';
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { AppRoute } from '@/common/constants';
 import { DashboardLayout } from '@/components/layouts/DashboardLayout';
 import { DefaultLayout } from '@/components/layouts/DefaultLayout';
@@ -51,6 +52,12 @@ export default function App({ Component, pageProps, router }: AppProps<{ initial
 
   return (
     <>
+      <NextHead>
+        <title>OmoClone | By AndriiTech</title>
+        <meta name="description" content="The Clone of Omo App to showcase simple MVP by Andrii Shupta" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/omo-logo.webp" />
+      </NextHead>
       <SessionContextProvider supabaseClient={clientSupabase} initialSession={pageProps.initialSession}>
         <NextUIProvider theme={nextUiTheme}>
           <Layout>

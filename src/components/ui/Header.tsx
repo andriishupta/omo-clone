@@ -15,11 +15,6 @@ import { toast } from 'react-toastify';
 
 const menuItems = [
   {
-    id: AppRoute.Showcase,
-    value: AppRoute.Showcase,
-    name: 'Showcase',
-  },
-  {
     id: AppRoute.About,
     value: AppRoute.About,
     name: 'About',
@@ -110,7 +105,10 @@ const NavbarAuth = () => {
 
   const [visible, setVisible] = useState(false);
   const openModal = () => setVisible(true);
-  const closeModal = () => setVisible(false);
+  const closeModal = () => {
+    setVisible(false);
+    reset()
+  }
 
   const onAuth = async ({ email, password }: { email: string; password: string }) => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -120,6 +118,7 @@ const NavbarAuth = () => {
 
     if (error) {
       toast(<Text>{error.message}</Text>, { type: 'error' });
+      closeModal()
     } else {
       await router.push(AppRoute.Dashboard);
     }
