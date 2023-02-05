@@ -1,18 +1,5 @@
 import Link from 'next/link';
-import {
-  Avatar,
-  Button,
-  Checkbox,
-  Dropdown,
-  Input,
-  Loading,
-  Modal,
-  Navbar,
-  Row,
-  Text,
-  Container,
-  Link as UILink,
-} from '@nextui-org/react';
+import { Avatar, Button, Dropdown, Input, Link as UILink, Loading, Modal, Navbar, Text } from '@nextui-org/react';
 import { Logo } from './Logo';
 import { type FC, useState } from 'react';
 import { FiLock, FiMail } from 'react-icons/fi';
@@ -24,6 +11,7 @@ import { z } from 'zod';
 import { AppRoute } from '@/common/constants';
 import { User, useSessionContext, useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import { Database } from '@/types/supabase';
+import { toast } from 'react-toastify';
 
 const menuItems = [
   {
@@ -36,9 +24,14 @@ const menuItems = [
     value: AppRoute.About,
     name: 'About',
   },
+  // {
+  //   id: AppRoute.AndriiTech,
+  //   value: AppRoute.AndriiTech,
+  //   name: 'AndriiTech',
+  // },
 ];
 
-export const Header = () => {
+export const Header = ({ homeRoute }: { homeRoute: AppRoute }) => {
   const { route } = useRouter();
   const { isLoading } = useSessionContext();
   const user = useUser();
@@ -61,7 +54,7 @@ export const Header = () => {
 
       <Navbar.Content hideIn="xs">
         <Navbar.Brand>
-          <Link href={AppRoute.Home}>
+          <Link href={homeRoute}>
             <Logo />
           </Link>
         </Navbar.Brand>
@@ -80,7 +73,13 @@ export const Header = () => {
           },
         }}
       >
-        {isLoading ? <Loading type="points" /> : user ? <UserDropdown user={user} /> : <NavbarAuth />}
+        {isLoading ? (
+          <Loading type="points" />
+        ) : user ? (
+          <UserDropdown user={user} homeRoute={homeRoute} />
+        ) : (
+          <NavbarAuth />
+        )}
       </Navbar.Content>
     </Navbar>
   );
@@ -112,21 +111,17 @@ const NavbarAuth = () => {
   const openModal = () => setVisible(true);
   const closeModal = () => setVisible(false);
 
-  const onAuth = ({ email, password }: { email: string; password: string }) => {
-    return supabase.auth
-      .signInWithPassword({
-        email,
-        password,
-      })
-      .then((response) => {
-        console.log(response);
-        router.push(AppRoute.Dashboard);
-      })
-      .catch((e) => console.error(e))
-      .finally(() => {
-        closeModal();
-        reset();
-      });
+  const onAuth = async ({ email, password }: { email: string; password: string }) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      toast(<Text>{error.message}</Text>, { type: 'error' });
+    } else {
+      await router.push(AppRoute.Dashboard);
+    }
   };
 
   return (
@@ -198,12 +193,12 @@ const NavbarAuth = () => {
 
 type TMenuActionKey = AppRoute | 'theme' | 'logout';
 
-const UserDropdown: FC<{ user: User }> = ({ user }) => {
+const UserDropdown: FC<{ user: User; homeRoute: AppRoute }> = ({ user, homeRoute }) => {
   const supabase = useSupabaseClient();
   const router = useRouter();
 
   const handleMenuClick = (actionKey: TMenuActionKey) => {
-    if ([AppRoute.Dashboard].includes(actionKey as AppRoute)) {
+    if ([AppRoute.Dashboard, AppRoute.DashboardSettings, AppRoute.Home].includes(actionKey as AppRoute)) {
       return router.push(actionKey);
     }
 
@@ -231,10 +226,13 @@ const UserDropdown: FC<{ user: User }> = ({ user }) => {
           color="secondary"
           onAction={(actionKey) => void handleMenuClick(actionKey as unknown as TMenuActionKey)}
         >
-          <Dropdown.Item key={AppRoute.Dashboard}>Dashboard</Dropdown.Item>
-          <Dropdown.Item key={AppRoute.DashboardSettings} withDivider>
-            Settings
+          <Dropdown.Item key="user">
+            <Text b>{user.email}</Text>
           </Dropdown.Item>
+          <Dropdown.Item withDivider key={homeRoute === AppRoute.Home ? AppRoute.Dashboard : AppRoute.Home}>
+            {homeRoute === AppRoute.Home ? 'Dashboard' : 'Home'}
+          </Dropdown.Item>
+          <Dropdown.Item key={AppRoute.DashboardSettings}>Settings</Dropdown.Item>
           <Dropdown.Item key="logout" withDivider color="error">
             Log Out
           </Dropdown.Item>

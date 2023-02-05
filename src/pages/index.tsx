@@ -57,8 +57,6 @@ export default function Home() {
             </Container>
           </Grid>
 
-          <Grid xs={12}><Spacer y={1}/></Grid>
-
           <Grid xs={12}>
             <Container display="flex" alignItems="center">
               <Row>

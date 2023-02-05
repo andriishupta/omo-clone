@@ -2,11 +2,12 @@ import type { FC, PropsWithChildren } from 'react';
 import { Col, Container, Row } from '@nextui-org/react';
 
 import { Header } from '@/components/ui/Header';
+import { AppRoute } from '@/common/constants';
 
 export const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
-      <Header />
+      <Header homeRoute={AppRoute.Dashboard} />
       <Container fluid css={{ height: 'calc(100vh - 76px)', padding: 0 }}>
         <Row gap={3} css={{ height: '100%', marginLeft: 0 }}>
           <Col>

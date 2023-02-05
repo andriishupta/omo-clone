@@ -1,9 +1,28 @@
-import { Button, Card, Col, Container, Grid, Image, Input, Loading, Radio, Row, Spacer, Text } from '@nextui-org/react';
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Grid,
+  Image,
+  Input,
+  Loading,
+  Radio,
+  Row,
+  Spacer,
+  Text
+} from '@nextui-org/react';
 import { useState } from 'react';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types/supabase';
-import { GetServerSideProps, NextPage } from 'next';
-import { FiLock, FiMail } from 'react-icons/fi';
+import {
+  GetServerSideProps,
+  NextPage
+} from 'next';
+import {
+  FiLock,
+  FiMail
+} from 'react-icons/fi';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,22 +39,22 @@ enum ActiveStep {
 }
 
 const Steps = {
-  [ActiveStep.Initial]: InitialStep,
-  [ActiveStep.ProductSelect]: ProductSelectStep,
-  [ActiveStep.Goal]: GoalStep,
-  [ActiveStep.Final]: FinalStep,
+  [ ActiveStep.Initial ]: InitialStep,
+  [ ActiveStep.ProductSelect ]: ProductSelectStep,
+  [ ActiveStep.Goal ]: GoalStep,
+  [ ActiveStep.Final ]: FinalStep,
 };
 
 type NextStepFn = (step: ActiveStep) => void;
 
 const Welcome: NextPage<{ completed: boolean }> = ({ completed }) => {
   const [activeStep, setActiveStep] = useState(ActiveStep.Initial);
-  const StepComponent = Steps[activeStep];
+  const StepComponent = Steps[ activeStep ];
 
   if (completed) {
     return (
       <Container sm display="flex" justify="center" alignItems="center" css={{ height: 'calc(100vh - 76px)' }}>
-        <Row>
+        <Row justify="center">
           <Text h2> All set 😉</Text>
         </Row>
       </Container>
@@ -45,7 +64,7 @@ const Welcome: NextPage<{ completed: boolean }> = ({ completed }) => {
   return (
     <>
       <Container sm display="flex" justify="center" alignItems="center" css={{ height: 'calc(100vh - 76px)' }}>
-        <StepComponent setNextStep={setActiveStep} />
+        <StepComponent setNextStep={setActiveStep}/>
       </Container>
     </>
   );
@@ -59,8 +78,8 @@ function InitialStep({ setNextStep }: { setNextStep: NextStepFn }) {
           <Row justify="center">
             <Text h2>300,000 users chosen us</Text>
           </Row>
-          <Image width="50%" src="/people-use-omo.png" alt="People use Omo" />
-          <Spacer y={2} />
+          <Image width="50%" src="/people-use-omo.png" alt="People use Omo"/>
+          <Spacer y={2}/>
           <Row justify="center">
             <Button auto rounded onClick={() => setNextStep(ActiveStep.ProductSelect)}>
               Continue
@@ -80,7 +99,7 @@ function ProductSelectStep({ setNextStep }: { setNextStep: NextStepFn }) {
         <Grid xs={12} sm={6}>
           <Card css={{ p: '$6', mw: '400px' }}>
             <Card.Header>
-              <Image alt="Omo logo" src="/omo-logo.webp" width="34px" height="34px" />
+              <Image alt="Omo logo" src="/omo-logo.webp" width="34px" height="34px"/>
               <Grid.Container css={{ pl: '$6' }}>
                 <Grid xs={4}>
                   <Text h4 css={{ lineHeight: '$xs' }}>
@@ -88,11 +107,11 @@ function ProductSelectStep({ setNextStep }: { setNextStep: NextStepFn }) {
                   </Text>
                 </Grid>
                 <Grid xs={4}>
-                  <Spacer y={1} />
+                  <Spacer y={1}/>
                 </Grid>
                 <Grid xs={4}>
                   <Radio.Group defaultValue="omo-fasting">
-                    <Radio value="omo-fasting" />
+                    <Radio value="omo-fasting"/>
                   </Radio.Group>
                 </Grid>
               </Grid.Container>
@@ -105,7 +124,7 @@ function ProductSelectStep({ setNextStep }: { setNextStep: NextStepFn }) {
         <Grid xs={12} sm={6}>
           <Card css={{ p: '$6', mw: '400px' }}>
             <Card.Header>
-              <Image alt="Omo logo" src="/omo-logo.webp" width="34px" height="34px" />
+              <Image alt="Omo logo" src="/omo-logo.webp" width="34px" height="34px"/>
               <Grid.Container css={{ pl: '$6' }}>
                 <Grid xs={4}>
                   <Text h4 css={{ lineHeight: '$xs' }}>
@@ -113,11 +132,11 @@ function ProductSelectStep({ setNextStep }: { setNextStep: NextStepFn }) {
                   </Text>
                 </Grid>
                 <Grid xs={4}>
-                  <Spacer y={1} />
+                  <Spacer y={1}/>
                 </Grid>
                 <Grid xs={4}>
                   <Radio.Group>
-                    <Radio isDisabled value="omo-fasting" />
+                    <Radio isDisabled value="omo-fasting"/>
                   </Radio.Group>
                 </Grid>
               </Grid.Container>
@@ -153,11 +172,11 @@ function GoalStep({ setNextStep }: { setNextStep: NextStepFn }) {
                   </Text>
                 </Grid>
                 <Grid xs={4}>
-                  <Spacer y={1} />
+                  <Spacer y={1}/>
                 </Grid>
                 <Grid xs={4}>
                   <Radio.Group value={goal} onChange={setGoal}>
-                    <Radio value="loose" />
+                    <Radio value="loose"/>
                   </Radio.Group>
                 </Grid>
               </Grid.Container>
@@ -177,11 +196,11 @@ function GoalStep({ setNextStep }: { setNextStep: NextStepFn }) {
                   </Text>
                 </Grid>
                 <Grid xs={4}>
-                  <Spacer y={1} />
+                  <Spacer y={1}/>
                 </Grid>
                 <Grid xs={4}>
                   <Radio.Group value={goal} onChange={setGoal}>
-                    <Radio value="maintain" />
+                    <Radio value="maintain"/>
                   </Radio.Group>
                 </Grid>
               </Grid.Container>
@@ -225,31 +244,27 @@ function FinalStep() {
     resolver: zodResolver(AuthFormScheme),
   });
 
-  const onAuth = ({ email, password }: { email: string; password: string }) => {
-    return supabase.auth
-      .signUp({
-        email,
-        password,
-      })
-      .then((response) => {
-        console.log(response);
-        router.push(AppRoute.Dashboard);
-      })
-      .catch((e: any) => {
-        console.error(e);
-        toast(() => <Text>{e?.message || e}</Text>, { type: 'error' });
-      })
-      .finally(() => {
-        reset();
-      });
+  const onAuth = async ({ email, password }: { email: string; password: string }) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) {
+      toast(<Text>{error.message}</Text>, { type: 'error' });
+    } else {
+      await router.push(AppRoute.Dashboard);
+    }
   };
 
   return (
     <>
       <Row justify="center" align="center">
         <form onSubmit={handleSubmit(onAuth)}>
-          <Row justify="center" css={{mb: '$sm'}}><Text h2>Registration</Text></Row>
-          <Row css={{mb: '$sm'}}>
+          <Row justify="center" css={{ mb: '$sm' }}>
+            <Text h2>Registration</Text>
+          </Row>
+          <Row css={{ mb: '$sm' }}>
             <Input
               clearable
               bordered
@@ -257,11 +272,11 @@ function FinalStep() {
               color="primary"
               size="lg"
               placeholder="Email"
-              contentLeft={<FiMail />}
+              contentLeft={<FiMail/>}
               {...register('email')}
             />
           </Row>
-          <Row css={{mb: '$sm'}}>
+          <Row css={{ mb: '$sm' }}>
             <Input
               type="password"
               clearable
@@ -270,19 +285,19 @@ function FinalStep() {
               color="primary"
               size="lg"
               placeholder="Password"
-              contentLeft={<FiLock />}
+              contentLeft={<FiLock/>}
               {...register('password')}
             />
           </Row>
 
           <Row justify="flex-end">
-          <Button type="submit" auto disabled={isSubmitting}>
-            {isSubmitting ? (
-              <Loading type="points" color="currentColor" size="sm" />
-            ) : (
-              <Text color="$whiteH">Sign up</Text>
-            )}
-          </Button>
+            <Button type="submit" auto disabled={isSubmitting}>
+              {isSubmitting ? (
+                <Loading type="points" color="currentColor" size="sm"/>
+              ) : (
+                <Text color="$whiteH">Sign up</Text>
+              )}
+            </Button>
           </Row>
         </form>
       </Row>
