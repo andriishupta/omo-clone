@@ -22,9 +22,10 @@ const About = () => {
 
           <Spacer y={1} />
 
-          <Text h3>Example User</Text>
+          <Text h3>Example User(or create Your Own)</Text>
           <Text>First user: &quot;user+1@omoclone.com&quot; - &quot;12345678&quot;</Text>
           <Text>Running timer: &quot;user+2@omoclone.com&quot; - &quot;12345678&quot;</Text>
+          <Text>No Fasts: &quot;user+3@omoclone.com&quot; - &quot;12345678&quot;</Text>
 
           <Spacer y={1} />
 
