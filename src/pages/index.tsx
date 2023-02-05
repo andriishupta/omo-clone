@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { Col, Container, Grid, Image, Row, Text, Spacer } from '@nextui-org/react';
 
 export default function Home() {

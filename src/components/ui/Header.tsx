@@ -24,11 +24,11 @@ const menuItems = [
     value: AppRoute.About,
     name: 'About',
   },
-  // {
-  //   id: AppRoute.AndriiTech,
-  //   value: AppRoute.AndriiTech,
-  //   name: 'AndriiTech',
-  // },
+  {
+    id: AppRoute.AndriiTech,
+    value: AppRoute.AndriiTech,
+    name: 'AndriiTech',
+  },
 ];
 
 export const Header = ({ homeRoute }: { homeRoute: AppRoute }) => {
@@ -40,17 +40,18 @@ export const Header = ({ homeRoute }: { homeRoute: AppRoute }) => {
 
   return (
     <Navbar disableShadow variant="sticky">
-      <Navbar.Toggle showIn="xs">
+      <Navbar.Brand showIn="xs">
+        <Navbar.Toggle aria-label="toggle navigation"/>
         <Navbar.Collapse>
           {menuItems.map((menuItem) => (
             <Navbar.CollapseItem key={menuItem.id}>
-              <UILink as={Link} href={menuItem.value} underline={isActiveRoute(menuItem.value)}>
+              <Link href={menuItem.value}>
                 <Text>{menuItem.name}</Text>
-              </UILink>
+              </Link>
             </Navbar.CollapseItem>
           ))}
         </Navbar.Collapse>
-      </Navbar.Toggle>
+      </Navbar.Brand>
 
       <Navbar.Content hideIn="xs">
         <Navbar.Brand>
@@ -69,7 +70,7 @@ export const Header = ({ homeRoute }: { homeRoute: AppRoute }) => {
         css={{
           '@xsMax': {
             w: '100%',
-            jc: 'space-between',
+            jc: 'flex-end',
           },
         }}
       >
