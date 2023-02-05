@@ -1,5 +1,13 @@
-const Showcase = () => {
-  return 'Recod'
-}
+import { Grid } from '@nextui-org/react';
 
-export default Showcase
+const Showcase = () => {
+  return (
+    <Grid.Container>
+      <Grid xs={12}>
+        <video src="/omo-all-in-one.webp" />
+      </Grid>
+    </Grid.Container>
+  );
+};
+
+export default Showcase;
