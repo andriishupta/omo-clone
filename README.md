@@ -1,3 +1,9 @@
+# OMO Clone
+This simple app with Auth, DB, FE, and "Marketing FE" shows my technical skills.
+
+It is an MVP, so some things were intensionally skipped: there are room for performance and UI/UX improvements, better error handling, etc.
+
+# Next.js
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
