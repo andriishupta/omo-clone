@@ -25,6 +25,11 @@ const menuItems = [
     value: AppRoute.AndriiTech,
     name: 'AndriiTech',
   },
+  {
+    id: AppRoute.AndriiOps,
+    value: AppRoute.AndriiOps,
+    name: 'AndriiOps',
+  },
 ];
 
 export const Header = ({ homeRoute }: { homeRoute: AppRoute }) => {

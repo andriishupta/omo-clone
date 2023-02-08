@@ -7,6 +7,7 @@ export enum AppRoute {
   Home = '/',
   About = '/about',
   AndriiTech = '/andrii-tech',
+  AndriiOps = '/andrii-ops',
 
   Blog = '/blog',
 

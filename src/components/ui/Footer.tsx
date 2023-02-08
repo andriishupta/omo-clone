@@ -75,6 +75,9 @@ export const Footer = () => {
             <Link href={AppRoute.AndriiTech}>
               <Text color="$white">AndriiTech</Text>
             </Link>
+            <Link href={AppRoute.AndriiOps}>
+              <Text color="$white">AndriiOps</Text>
+            </Link>
           </Grid>
           <Grid
             direction="column"
